@@ -31,13 +31,44 @@ describe('Player', function() {
       bowlingGame.enterBowl(10)
       expect(bowlingGame.bonusLog[2][0]).toEqual(20)
     })
-    
+
     it('getting a spare will mean a double point bonus on the next roll only', function() {
       bowlingGame.enterBowl(5)
       bowlingGame.enterBowl(5)
       bowlingGame.enterBowl(5)
       bowlingGame.enterBowl(0)
       expect(bowlingGame.totalScore()).toEqual(20)
+    })
+
+    it('twelve strikes will give perfect game with score of 300', function() {
+      var i
+      for (i = 0; i < 12; i++) {
+        bowlingGame.enterBowl(10)
+      }
+      expect(bowlingGame.totalScore()).toEqual(300)
+      expect(bowlingGame.enterBowl()).toEqual("game is complete")
+    })
+
+    it('twenty gutters will give gutter game with score of 0', function() {
+      var i
+      for (i = 0; i < 20; i++) {
+        bowlingGame.enterBowl(0)
+      }
+      expect(bowlingGame.totalScore()).toEqual(0)
+      expect(bowlingGame.enterBowl()).toEqual("game is complete")
+    })
+
+    it('a spare on the final turn will allow one bonus roll', function() {
+      var i
+      for (i = 0; i < 16; i++) {
+        bowlingGame.enterBowl(0)
+      }
+      bowlingGame.enterBowl(10)
+      bowlingGame.enterBowl(5)
+      bowlingGame.enterBowl(5)
+      bowlingGame.enterBowl(1)
+      expect(bowlingGame.totalScore()).toEqual(31)
+      expect(bowlingGame.enterBowl()).toEqual("game is complete")
     })
   })
 
