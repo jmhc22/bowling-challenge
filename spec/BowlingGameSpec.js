@@ -18,12 +18,27 @@ describe('Player', function() {
       expect(bowlingGame.totalScore()).toEqual(6)
     })
 
-    // it('getting a strike will double the following two scores', function() {
-    //   bowlingGame.enterBowl(10)
-    //   bowlingGame.enterBowl(4)
-    //   bowlingGame.enterBowl(3)
-    //   expect(bowlingGame.totalScore()).toEqual(24)
-    // })
+    it('getting a strike will double the following two scores', function() {
+      bowlingGame.enterBowl(10)
+      bowlingGame.enterBowl(4)
+      bowlingGame.enterBowl(3)
+      expect(bowlingGame.totalScore()).toEqual(24)
+    })
+
+    it('getting three strikes will mean a 20 point bonus on the third', function() {
+      bowlingGame.enterBowl(10)
+      bowlingGame.enterBowl(10)
+      bowlingGame.enterBowl(10)
+      expect(bowlingGame.bonusLog[2][0]).toEqual(20)
+    })
+    
+    it('getting a spare will mean a double point bonus on the next roll only', function() {
+      bowlingGame.enterBowl(5)
+      bowlingGame.enterBowl(5)
+      bowlingGame.enterBowl(5)
+      bowlingGame.enterBowl(0)
+      expect(bowlingGame.totalScore()).toEqual(20)
+    })
   })
 
   describe('.rollLog', function() {
