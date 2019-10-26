@@ -6,14 +6,8 @@ $(document).ready(function() {
     updateFrames()
     bowl.enterBowl(Number($("#bowl-value").val()))
     $('#p1-total').text(bowl.totalScore())
+    updateFrameTotals()
   })
-
-  function updateTemperature() {
-    $('#temperature').text(thermostat.current())
-    $('#power-usage').text(thermostat.usage())
-    $('#temperature').attr('class', thermostat.usage())
-    $('#style').attr('class', thermostat.usage())
-  }
 
   function updateFrames() {
     $(`#p1-frame${bowl.frame}-roll${bowl.roll}`).text($("#bowl-value").val())
@@ -30,5 +24,13 @@ $(document).ready(function() {
     }
   }
 
-    // $('#p1-frame0-frametotal').text(bowl.cumulativeTotal(9));
+  function updateFrameTotals() {
+    var i
+    for (i = 0; i < bowl.frame; i++) {
+      if (bowl.multiplier[0][0] === i || bowl.multiplier[0][2] === i) {
+        continue
+      }
+      $(`#p1-frame${i}-frametotal`).text(bowl.cumulativeTotal(i));
+    }
+  }
 })
