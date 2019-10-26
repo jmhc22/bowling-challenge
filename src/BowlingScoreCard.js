@@ -8,14 +8,14 @@ function BowlingScoreCard() {
 }
 
 BowlingScoreCard.prototype.enterBowl = function(n) {
-  if(this.frame === 10 && this.multiplier[0].length != 0) {
+  if (this.frame === 10 && this.multiplier[0].length != 0) {
     return this._bonusScoring(n)
-  } else if(this.frame === 10 && this.multiplier[0].length === 0) {
+  } else if (this.frame === 10 && this.multiplier[0].length === 0) {
     return "game is complete"
   }
   this._addScoring(n)
-  if(this.frameTotal === 10) { this._strikeSpareCheck() }
-  if(n === 10 || this.roll === 1) {
+  if (this.frameTotal === 10) { this._strikeSpareCheck() }
+  if (n === 10 || this.roll === 1) {
     this._nextFrame()
   } else {
     this.roll += 1
@@ -29,7 +29,7 @@ BowlingScoreCard.prototype.totalScore = function(n) {
 BowlingScoreCard.prototype._strikeSpareCheck = function() {
   this.multiplier[0].push(this.frame)
   this.multiplier[0].push(this.roll)
-  if(this.roll === 0) {
+  if (this.roll === 0) {
     this.multiplier[1].push(this.frame)
     this.multiplier[1].push(this.roll + 1)
   }
@@ -60,7 +60,7 @@ BowlingScoreCard.prototype._nextFrame = function() {
 BowlingScoreCard.prototype._addScoring = function(n) {
   this.rollLog[this.frame][this.roll] = n
   this.frameTotal += n
-  if(this.multiplier[0].length != 0) { return this._bonusScoring(n) }
+  if (this.multiplier[0].length != 0) { return this._bonusScoring(n) }
   this.multiplier.shift()
 }
 

@@ -8,3 +8,19 @@ table {
 th, td, tr {
   empty-cells: show
 }
+
+.frame-running-total {
+  text-align: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.single-roll {
+  text-align: right;
+  border: 0.5px solid black;
+}
+
+#p1-total {
+  font-size: 38px;
+  font-weight: bold;
+}
