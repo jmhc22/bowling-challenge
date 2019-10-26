@@ -5,5 +5,6 @@ function framesTemplate() {
 }
 
 function multiplierTemplate() {
-  return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  return [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [],
+          [], [], [], [], [], [], []]
 }

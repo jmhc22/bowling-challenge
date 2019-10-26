@@ -3,15 +3,14 @@ function BowlingScoreCard() {
   this.roll = 0
   this.rollLog = framesTemplate()
   this.bonusLog = framesTemplate()
-  this.finalFrameBonus = []
   this.frameTotal = 0
   this.multiplier = multiplierTemplate()
 }
 
 BowlingScoreCard.prototype.enterBowl = function(n) {
-  if(this.frame === 10 && this.multiplier[0] != 0) {
-    return this._finalFrameBonusRoll(n)
-  } else if(this.frame === 10 && this.multiplier[0] === 0) {
+  if(this.frame === 10 && this.multiplier[0].length != 0) {
+    return this._bonusScoring(n)
+  } else if(this.frame === 10 && this.multiplier[0].length === 0) {
     return "game is complete"
   }
   this._addScoring(n)
@@ -24,13 +23,16 @@ BowlingScoreCard.prototype.enterBowl = function(n) {
 }
 
 BowlingScoreCard.prototype.totalScore = function(n) {
-  return this._logTotal(this.bonusLog) + this._logTotal(this.rollLog) +
-    this._arraySum(this.finalFrameBonus)
+  return this._logTotal(this.bonusLog) + this._logTotal(this.rollLog)
 }
 
 BowlingScoreCard.prototype._strikeSpareCheck = function() {
-  this.multiplier[0]++
-  if(this.roll === 0) { this.multiplier[1]++ }
+  this.multiplier[0].push(this.frame)
+  this.multiplier[0].push(this.roll)
+  if(this.roll === 0) {
+    this.multiplier[1].push(this.frame)
+    this.multiplier[1].push(this.roll + 1)
+  }
 }
 
 BowlingScoreCard.prototype._logTotal = function(arrayLog) {
@@ -39,10 +41,6 @@ BowlingScoreCard.prototype._logTotal = function(arrayLog) {
     total += (element[0] + element[1])
   })
   return total
-}
-
-BowlingScoreCard.prototype._finalFrameBonusRoll = function(n) {
-  this.finalFrameBonus.push(n * this.multiplier.shift())
 }
 
 BowlingScoreCard.prototype._arraySum = function(array) {
@@ -61,8 +59,17 @@ BowlingScoreCard.prototype._nextFrame = function() {
 
 BowlingScoreCard.prototype._addScoring = function(n) {
   this.rollLog[this.frame][this.roll] = n
-  this.bonusLog[this.frame][this.roll] = n * this.multiplier.shift()
   this.frameTotal += n
+  if(this.multiplier[0].length != 0) { return this._bonusScoring(n) }
+  this.multiplier.shift()
+}
+
+BowlingScoreCard.prototype._bonusScoring = function(n) {
+  let bonusPositions = this.multiplier.shift()
+  do {
+    this.bonusLog[bonusPositions.shift()][bonusPositions.shift()] += n
+  }
+  while (bonusPositions.length > 0)
 }
 
 BowlingScoreCard.prototype.cumulativeTotal = function(frame) {
@@ -72,7 +79,7 @@ BowlingScoreCard.prototype.cumulativeTotal = function(frame) {
 BowlingScoreCard.prototype._cumLogTotal = function(arrayLog, frame) {
   let total = 0
   var i
-  for (i = 0; i < frame; i++) {
+  for (i = 0; i <= frame; i++) {
     total += (arrayLog[i][0] + arrayLog[i][1])
   }
   return total

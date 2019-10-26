@@ -29,7 +29,7 @@ describe('Player', function() {
       scoreCard.enterBowl(10)
       scoreCard.enterBowl(10)
       scoreCard.enterBowl(10)
-      expect(scoreCard.bonusLog[2][0]).toEqual(20)
+      expect(scoreCard.bonusLog[0][1] + scoreCard.bonusLog[1][0]).toEqual(20)
     })
 
     it('getting a spare will mean a double point bonus on the next roll only', function() {
@@ -96,26 +96,26 @@ describe('Player', function() {
     })
   })
 
-  describe('#cumulativeTotal', function() {
-    it('can look back and view cummulative total at each frame', function() {
-      scoreCard.enterBowl(5)
-      scoreCard.enterBowl(5)
-      scoreCard.enterBowl(2)
-      scoreCard.enterBowl(1)
-      scoreCard.enterBowl(8)
-      expect(scoreCard.cumulativeTotal(1)).toEqual(10)
-      expect(scoreCard.cumulativeTotal(2)).toEqual(15)
-    })
-
-    it('can look back at scores when scoring perfect strikes', function() {
-      var i
-      for (i = 0; i < 12; i++) {
-        scoreCard.enterBowl(10)
-      }
-      expect(scoreCard.cumulativeTotal(1)).toEqual(10)
-      expect(scoreCard.cumulativeTotal(10)).toEqual(270)
-
-    })
-  })
+  // describe('#cumulativeTotal', function() {
+  //   it('can look back and view cummulative total at each frame', function() {
+  //     scoreCard.enterBowl(5)
+  //     scoreCard.enterBowl(5)
+  //     scoreCard.enterBowl(2)
+  //     scoreCard.enterBowl(1)
+  //     scoreCard.enterBowl(8)
+  //     expect(scoreCard.cumulativeTotal(1)).toEqual(10)
+  //     expect(scoreCard.cumulativeTotal(2)).toEqual(15)
+  //   })
+  //
+  //   it('can look back at scores when scoring perfect strikes', function() {
+  //     var i
+  //     for (i = 0; i < 12; i++) {
+  //       scoreCard.enterBowl(10)
+  //     }
+  //     expect(scoreCard.cumulativeTotal(1)).toEqual(10)
+  //     expect(scoreCard.cumulativeTotal(10)).toEqual(270)
+  //
+  //   })
+  // })
 
 })
