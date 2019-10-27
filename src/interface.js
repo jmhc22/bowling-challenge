@@ -12,6 +12,7 @@ $(document).ready(function() {
     } else {
       refreshPins()
     }
+    $("#bowl-value").val('0')
   })
 
   function updateFrames() {

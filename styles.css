@@ -11,16 +11,17 @@ th, td, tr {
 
 .frame-running-total {
   text-align: right;
-  font-size: 20px;
+  font-size: 1.5vw;
   font-weight: bold;
 }
 
 .single-roll {
   text-align: right;
   border: 0.5px solid black;
+  font-size: 1.1vw
 }
 
 #p1-total {
-  font-size: 38px;
+  font-size: 3vw;
   font-weight: bold;
 }
